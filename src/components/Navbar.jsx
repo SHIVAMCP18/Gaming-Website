@@ -3,10 +3,11 @@ import gsap from "gsap";
 import { useWindowScroll } from "react-use";
 import { useEffect, useRef, useState } from "react";
 import { TiLocationArrow } from "react-icons/ti";
+import { Link, useLocation } from "react-router-dom";
 
 import Button from "./Button.jsx";
 
-const navItems = ["Nexus", "Vault", "Prologue", "About", "Contact"];
+const navItems = ["Vault", "News", "About", "Contact Us"];
 
 const NavBar = () => {
     // State for toggling audio and visual indicator
@@ -20,6 +21,8 @@ const NavBar = () => {
     const { y: currentScrollY } = useWindowScroll();
     const [isNavVisible, setIsNavVisible] = useState(true);
     const [lastScrollY, setLastScrollY] = useState(0);
+    const location = useLocation();
+    const isHomePage = location.pathname === "/";
 
     // Toggle audio and visual indicator
     const toggleAudioIndicator = () => {
@@ -71,28 +74,49 @@ const NavBar = () => {
                 <nav className="flex size-full items-center justify-between p-4">
                     {/* Logo and Product button */}
                     <div className="flex items-center gap-7">
-                        <img src="/public/img/logo.png" alt="logo" className="w-10" />
+                        <Link to="/">
+                            <img src="/img/logo.png" alt="logo" className="w-10" />
+                        </Link>
 
-                        <Button
-                            id="product-button"
-                            title="Products"
-                            rightIcon={<TiLocationArrow />}
-                            containerClass="bg-blue-50 md:flex hidden items-center justify-center gap-1"
-                        />
+                        <Link to="/vault">
+                            <Button
+                                id="product-button"
+                                title="Products"
+                                rightIcon={<TiLocationArrow />}
+                                containerClass="bg-blue-50 md:flex hidden items-center justify-center gap-1"
+                            />
+                        </Link>
                     </div>
 
                     {/* Navigation Links and Audio Button */}
                     <div className="flex h-full items-center">
                         <div className="hidden md:block">
-                            {navItems.map((item, index) => (
-                                <a
-                                    key={index}
-                                    href={`#${item.toLowerCase()}`}
-                                    className="nav-hover-btn"
-                                >
-                                    {item}
-                                </a>
-                            ))}
+                            {navItems.map((item, index) => {
+                                const isRoute = ["Vault", "News", "Contact Us"].includes(item);
+                                if (item === "Contact Us") {
+                                    return (
+                                        <Link key={index} to="/contact-us" className="nav-hover-btn">
+                                            Contact Us
+                                        </Link>
+                                    );
+                                }
+                                
+                                return isRoute ? (
+                                    <Link key={index} to={`/${item.toLowerCase()}`} className="nav-hover-btn">
+                                        {item}
+                                    </Link>
+                                ) : (
+                                    <a
+                                        key={index}
+                                        href={isHomePage ? `#${item.toLowerCase()}` : `/#${item.toLowerCase()}`}
+                                        className="nav-hover-btn"
+                                    >
+                                        {item}
+                                    </a>
+                                );
+                            })}
+                            <Link to="/dashboard" className="nav-hover-btn">Profile</Link>
+                            <Link to="/auth" className="nav-hover-btn">Login</Link>
                         </div>
 
                         <button
@@ -102,7 +126,7 @@ const NavBar = () => {
                             <audio
                                 ref={audioElementRef}
                                 className="hidden"
-                                src="/public/audio/loop.mp3"
+                                src="/audio/loop.mp3"
                                 loop
                             />
                             {[1, 2, 3, 4].map((bar) => (
