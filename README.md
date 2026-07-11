@@ -1,94 +1,159 @@
-# 🎮 Zentry Gaming Multiverse
+# Zentry Gaming Multiverse
 
-Welcome to the **Zentry Gaming Multiverse**, a high-performance, visually stunning platform designed to redefine the play economy. This project features premium animations, a modern glassmorphic interface, and a futuristic design inspired by high-end gaming aesthetics.
+A high-performance gaming platform built around the idea of a unified play economy. It combines premium animations, glassmorphic UI, and an AI-powered voice assistant into one immersive experience.
 
----
-
-## ⚡ Key Features
-
-- **Celestial Visuals**: Immersive video layers and dynamic backgrounds that create a deep, multiverse atmosphere.
-- **GSAP Animations**: Silky smooth transitions, scroll-triggered effects, and micro-interactions powered by Greensock (GSAP).
-- **Premium Auth UI**: A state-of-the-art Sign-Up and Sign-In flow with custom fields and mock-backend integration.
-- **Quest System**: Interactive quest tracking with glassmorphic cards and progress indicators.
-- **Multiverse Map**: An interactive exploration layout for discovering the various 'layers' of the game.
-- **Glassmorphism**: A sleek, modern UI design language using frosted-glass effects and vibrant accent colors.
+Live demo: [zentry-gaming.netlify.app](https://zentry-gaming.netlify.app) (if deployed)
 
 ---
 
-## 🛠️ Tech Stack
+## What this project does
 
-- **Framework**: [React 19](https://react.dev/)
-- **Bundler**: [Vite](https://vitejs.dev/)
-- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
-- **Animations**: [GSAP](https://greensock.com/gsap/) & [@gsap/react](https://github.com/greensock/react)
-- **Icons**: [React Icons](https://react-icons.github.io/react-icons/)
-- **Routing**: [React Router DOM](https://reactrouter.com/)
+Zentry is a concept for a shared gaming multiverse — think of it as an MMORPG layer that sits on top of all the games you already play. The website serves as the portal into that world, complete with:
+
+- **AI Voice Agent** — A real-time voice assistant powered by Google's Gemini Live API. You can talk to it, ask about quests, navigate the site by voice, or just explore the lore. It uses a Python backend with a simple RAG (retrieval-augmented generation) system to pull answers from a local knowledge base.
+
+- **Authentication** — Full sign-up and sign-in flow backed by Supabase, with email/password auth and session management.
+
+- **Quest System** — Interactive quest cards that track your progress across the site. Visit pages, complete objectives, and earn XP. Progress persists through Supabase.
+
+- **The Vault** — A collection hub for games, lootboxes, and interactive cards with hover animations and category filtering.
+
+- **Dashboard** — Player stats, level progression, leaderboard rankings, and account management.
+
+- **Celestial Visuals** — Layered video backgrounds, parallax star fields, and smooth scroll-triggered animations throughout.
+
+- **Multiverse Map** — An interactive layout showing the different layers and realms of the game economy.
 
 ---
 
-## 🚀 Speedrun Setup (Local Environment)
+## Tech Stack
+
+**Frontend**
+- React 19 with Vite
+- Tailwind CSS
+- GSAP for animations
+- React Router DOM
+- React Icons
+- Supabase JS client
+
+**Voice Agent Backend**
+- Python with FastAPI
+- WebSocket proxy to Gemini Live API (BidiGenerateContent)
+- Local RAG service using keyword matching against a JSON knowledge base
+- Uvicorn server
+
+---
+
+## Getting Started
 
 ### Prerequisites
-- [Node.js](https://nodejs.org/) (Latest LTS recommended)
-- npm (Comes with Node.js)
+- Node.js (LTS version)
+- Python 3.10+
+- A Gemini API key from [Google AI Studio](https://aistudio.google.com/apikey)
+- A Supabase project (free tier works fine)
 
-### Installation
-1. **Clone the repository**:
-   ```bash
-   git clone https://github.com/SHIVAMCP18/Gaming-Website.git
-   cd Gaming-Website
-   ```
+### 1. Clone and install
 
-2. **Install dependencies**:
-   ```bash
-   npm install
-   ```
+```bash
+git clone https://github.com/SHIVAMCP18/Gaming-Website.git
+cd Gaming-Website
+npm install
+```
 
-3. **Start the development server**:
-   ```bash
-   npm run dev
-   ```
+### 2. Set up environment variables
 
-4. **Open in browser**:
-   Navigate to the local URL displayed in your terminal (usually `http://localhost:5173` or `http://localhost:5174`).
+Copy the example file and fill in your keys:
 
----
+```bash
+cp .env.example .env
+```
 
-## 🌐 Deployment (Netlify)
+Your `.env` should look like this:
 
-This project is optimized for deployment on **Netlify**.
+```
+VITE_SUPABASE_URL=https://your-project.supabase.co
+VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+GEMINI_API_KEY=your_gemini_api_key
+```
 
-1. **Connect your GitHub** repo to Netlify.
-2. **Build Settings**:
-   - **Build Command**: `npm run build`
-   - **Publish Directory**: `dist`
-3. **Environment Variables**: If you decide to add the Supabase backend back later, add your `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` to the Netlify Environment Variables.
+### 3. Start the frontend
 
----
+```bash
+npm run dev
+```
 
-## 🎨 Design Philosophy
+Opens at `http://localhost:5173` by default.
 
-The project utilizes a **dark-first** approach with a focus on high contrast and vibrant purple/yellow accents.
-- **Typography**: Robert-Regular, Zentry-Font, and Circular-Web.
-- **Interaction**: Custom cursor tracking and interactive hover states on all primary CTAs.
+### 4. Start the voice backend (optional, for AI agent)
 
----
+In a separate terminal:
 
-## 🤝 Contributing
+```bash
+cd voice-backend
+pip install -r requirements.txt
+python -m uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+```
 
-Contributions are welcome! If you're an agent of the multiverse and want to help build the Play Economy:
-1. Fork the Project.
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`).
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`).
-4. Push to the Branch (`git push origin feature/AmazingFeature`).
-5. Open a Pull Request.
+The voice agent widget in the bottom-right corner of the site will connect to this backend automatically.
 
 ---
 
-## 📜 License
+## Deployment
 
-Distributed under the MIT License. See `LICENSE` for more information.
+### Frontend (Netlify)
+
+1. Connect the GitHub repo to Netlify
+2. Build command: `npm run build`
+3. Publish directory: `dist`
+4. Add `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` as environment variables in Netlify
+
+### Voice Backend
+
+The Python backend needs to run on a server that supports WebSockets. You can deploy it to Railway, Render, or any VPS. Make sure to set the `GEMINI_API_KEY` environment variable on the server.
+
+If you deploy the backend somewhere other than localhost, update the WebSocket URL in `src/components/VoiceAgent.jsx` (line 181) to point to your deployed backend.
 
 ---
 
-*Built with 💜 by [Shivam Patel](https://github.com/SHIVAMCP18)*
+## Project Structure
+
+```
+Gaming-Website/
+  src/
+    components/       -- React components (VoiceAgent, Auth, Dashboard, Vault, etc.)
+    lib/              -- Supabase client setup
+  voice-backend/
+    main.py           -- FastAPI WebSocket server, Gemini Live API proxy
+    rag_service.py    -- Local knowledge base search
+    zentry_lore.json  -- Game lore and quest data
+  public/             -- Static assets, videos, fonts
+```
+
+---
+
+## Design Approach
+
+The UI follows a dark-first design with high contrast and purple/gold accents. Typography uses Robert-Regular, Zentry-Font, and Circular-Web custom fonts. Every interactive element has hover states and micro-animations to keep the experience feeling alive.
+
+The glassmorphism style (frosted glass panels with subtle borders) is used throughout for cards, modals, and overlays.
+
+---
+
+## Contributing
+
+If you want to contribute:
+
+1. Fork the repo
+2. Create a feature branch (`git checkout -b feature/your-feature`)
+3. Commit your changes
+4. Push and open a pull request
+
+---
+
+## License
+
+MIT License. See `LICENSE` for details.
+
+---
+
+Built by [Shivam Patel](https://github.com/SHIVAMCP18)
