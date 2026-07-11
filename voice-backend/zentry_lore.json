@@ -1,0 +1,67 @@
+{
+  "multiverse": {
+    "name": "Zentry Gaming Multiverse",
+    "description": "Zentry is the world's largest shared adventure and a unified Play Economy. It unites players from countless games and platforms—both digital and physical—into a single massive multiplayer real-life RPG (MMORPG).",
+    "motto": "The Game of Games begins—your life, now an epic MMORPG.",
+    "core_mechanic": "Every game you play, step you take, and action you perform adds to your real-life XP, ranks, and earnings in the shared play economy."
+  },
+  "the_pillar": {
+    "name": "The Boundless Pillar",
+    "description": "The cosmic center where infinite realms converge. It is the anchor of Zentry's multiverse, holding secrets of ancient games and portals to future dimensions."
+  },
+  "quests": [
+    {
+      "id": 1,
+      "title": "Explorer",
+      "requirement": "Visit the Vault",
+      "reward": "50 XP",
+      "path": "/vault",
+      "tips": "Click the Vault option in the menu or navigation to enter the Vault and complete this quest."
+    },
+    {
+      "id": 2,
+      "title": "Stalker",
+      "requirement": "View User Dashboard",
+      "reward": "50 XP",
+      "path": "/dashboard",
+      "tips": "Head to your profile/dashboard to sync your statistics and complete the quest."
+    },
+    {
+      "id": 3,
+      "title": "Reader",
+      "requirement": "Check Latest News",
+      "reward": "100 XP",
+      "path": "/news",
+      "tips": "Read the latest entries in the news section to stay updated on multiverse changes."
+    }
+  ],
+  "features": [
+    {
+      "name": "Celestial Visuals",
+      "description": "Immersive video layers and deep parallax stars that create a cosmic, multiverse atmosphere."
+    },
+    {
+      "name": "GSAP Transitions",
+      "description": "Smooth transitions and micro-interactions powered by Greensock (GSAP)."
+    },
+    {
+      "name": "Premium Auth UI",
+      "description": "A state-of-the-art login/registration gateway that deploys your identity in the Multiverse."
+    },
+    {
+      "name": "Interactive Multiverse Map",
+      "description": "An interactive map showcasing the layers and convergent paths of the game economy."
+    }
+  ],
+  "levels_and_tiers": {
+    "tiers": ["Elite", "Master", "Grandmaster"],
+    "current_level_progress": "Master tier progress is at 74%. Earning 2,500 more XP will unlock the legendary 'Grandmaster' tier.",
+    "leaderboard": [
+      {"rank": 1, "name": "NeonX", "xp": "142.5k XP", "tier": "Grandmaster"},
+      {"rank": 2, "name": "Cypher", "xp": "128.9k XP", "tier": "Grandmaster"},
+      {"rank": 3, "name": "Astra", "xp": "115.2k XP", "tier": "Master"},
+      {"rank": 4, "name": "Ghost", "xp": "98.4k XP", "tier": "Master"},
+      {"rank": 5, "name": "Zentry_Bot", "xp": "85.1k XP", "tier": "Elite"}
+    ]
+  }
+}

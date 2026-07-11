@@ -4,6 +4,7 @@ import Vault from "./components/Vault.jsx";
 import Dashboard from "./components/Dashboard.jsx";
 import News from "./components/News.jsx";
 import QuestSystem from "./components/QuestSystem.jsx";
+import VoiceAgent from "./components/VoiceAgent.jsx";
 import Preloader from "./components/Preloader.jsx";
 import CustomCursor from "./components/CustomCursor.jsx";
 import Auth from "./components/Auth.jsx";
@@ -28,6 +29,7 @@ const App = () => {
                 <Route path="/contact-us" element={<ContactUs />} />
             </Routes>
             <QuestSystem />
+            <VoiceAgent />
         </Router>
     );
 };

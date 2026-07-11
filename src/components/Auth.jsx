@@ -6,6 +6,7 @@ import Button from "./Button.jsx";
 import { TiLocationArrow } from "react-icons/ti";
 import AnimatedTitle from "./AnimatedTitle.jsx";
 import CelestialBackground from "./CelestialBackground.jsx";
+import { supabase } from "../lib/supabaseClient";
 
 const Auth = () => {
     const [isLogin, setIsLogin] = useState(true);
@@ -31,19 +32,45 @@ const Auth = () => {
         setError(null);
         setSuccess(null);
 
-        // Mock Frontend Logic
-        setTimeout(() => {
+        try {
             if (isLogin) {
-                // Mock success for login
+                // Supabase Sign-In
+                const { data, error } = await supabase.auth.signInWithPassword({
+                    email: formData.email,
+                    password: formData.password,
+                });
+                
+                if (error) throw error;
+                
                 setSuccess("Success! Initializing sync with the Metagame...");
                 setTimeout(() => navigate("/dashboard"), 1500);
             } else {
-                // Mock success for signup
-                setSuccess("Account deployed! Welcome to the Multiverse.");
-                setTimeout(() => setIsLogin(true), 2000);
+                // Supabase Sign-Up
+                const { data, error } = await supabase.auth.signUp({
+                    email: formData.email,
+                    password: formData.password,
+                    options: {
+                        data: {
+                            username: formData.username,
+                            full_name: formData.fullName,
+                        }
+                    }
+                });
+
+                if (error) throw error;
+
+                if (data?.user && data.session === null) {
+                    setSuccess("Account created! Please check your email to verify your identity.");
+                } else {
+                    setSuccess("Account deployed! Welcome to the Multiverse.");
+                    setTimeout(() => setIsLogin(true), 2000);
+                }
             }
+        } catch (err) {
+            setError(err.message || "An unexpected error occurred.");
+        } finally {
             setLoading(false);
-        }, 1500);
+        }
     };
 
     return (
