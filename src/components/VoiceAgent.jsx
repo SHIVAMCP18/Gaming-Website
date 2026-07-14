@@ -185,7 +185,11 @@ const VoiceAgent = () => {
 
     try {
       // 1. Initialize WebSocket connection to Python FastAPI (passing voice configuration parameter)
-      const wsUrl = `ws://localhost:8000/stream-voice?voice=${voiceOverride}`;
+      const backendHost = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
+        ? "localhost:8000"
+        : "gaming-website-c368.onrender.com";
+      const protocol = window.location.protocol === "https:" ? "wss" : "ws";
+      const wsUrl = `${protocol}://${backendHost}/stream-voice?voice=${voiceOverride}`;
       const ws = new WebSocket(wsUrl);
       wsRef.current = ws;
 
